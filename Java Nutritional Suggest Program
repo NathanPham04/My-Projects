@@ -1,0 +1,217 @@
+import java.util.*;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
+class Main {
+  public static void main(String[] args) {
+    DecimalFormat df = new DecimalFormat("##.##");
+    df.setRoundingMode(RoundingMode.HALF_DOWN);
+    Scanner sc = new Scanner(System.in);// System.in is a standard input stream
+
+    System.out.println("This is a program to calculate food to fit the daily nutritional needs of an individual.\nSpecifically calcium, vitamin C, and water with broccoli, whole milk, and oranges.");
+
+    System.out.println("Which age group? Please input number.");
+
+    System.out.println("1. Infants \n2. Toddlers\n3. Children\n4. Teens\n5. Adults\n6. Older Individuals");
+
+    int choice = Integer.parseInt(sc.nextLine()); // reads string and sets the age group choice to a variable for later use
+
+    double[][] A = { //array for the equations
+      { 91, 87,  87 },
+      { 47, 276, 40 },
+      { 89.2, 0, 53.2 }
+    };
+
+    switch (choice){
+      case 1:
+        //200 mg calcium, 40 mg vitamic c, 170 g water
+        System.out.println("You've chosen infant"); 
+        double[] a = { 170, 200, 40 }; //array for the solution set for infants
+        double[] aa = lsolve(A, a); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (aa[i] < 0){
+            aa[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(aa[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(aa[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(aa[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      case 2:
+        //700 mg calcium, 30 mg vitamin c, 453 g water
+        System.out.println("You've chosen toddler");
+        double[] b = { 453, 700, 30 }; //array for the solution set for toddlers
+        double[] bb = lsolve(A, b); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (bb[i] < 0){
+            bb[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(bb[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(bb[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(b[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      case 3:
+        //1000 mg calcium, 45 mg vitamin c, 896 g water
+        System.out.println("You've chosen children");
+        double[] c = { 896, 1000, 45 }; //array for the solution set for children
+        double[] cc = lsolve(A, c); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (cc[i] < 0){
+            cc[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(cc[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(cc[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(cc[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      case 4:
+        //1300 mg calcium, 70 mg vitamin c, 1536 g water
+        System.out.println("You've chosen teen");
+        double[] d = { 1536, 1300, 70 }; //array for the solution set for teens
+        double[] dd = lsolve(A, d); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (dd[i] < 0){
+            dd[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(dd[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(dd[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(dd[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      case 5:
+        //1000mg calcium, 85 mg vitamin c, 1664 g water
+        System.out.println("You've chosen adult");
+        double[] e = { 1664, 1000, 85 }; //array for the solution set for adults
+        double[] ee = lsolve(A, e); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (ee[i] < 0){
+            ee[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(ee[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(ee[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(ee[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      case 6:
+        //1200 mg calcium, 85 mg vitamin c, 896 g water
+        System.out.println("You've chosen older individual");
+        double[] f = { 896, 1200, 85 }; //array for the solution set for seniors
+        double[] ff = lsolve(A, f); //call of the method
+        for(int i = 0; i < 3; i++){
+          if (ff[i] < 0){
+            ff[i] = 0;
+          }
+          switch (i){
+            case 0:
+              System.out.println(df.format(ff[i]*100) + "g of broccoli");
+              break;
+            case 1:
+              System.out.println(df.format(ff[i]*100) + "g of milk");
+              break;
+            case 2:
+              System.out.println(df.format(ff[i]*100) + "g of oranges");
+              break;
+          }
+        }
+        break;
+      default:
+        System.out.println("You've chosen a number out of the range of 1-6, restart the program and choose a number within the range 1-6.");
+        System.exit(-1);
+    }
+
+  }
+
+  private static final double EPSILON = 1e-10;
+
+  // Gaussian elimination with partial pivoting
+  public static double[] lsolve(double[][] A, double[] b) {
+    //makes sure decimals are rounded to second decimal place
+    DecimalFormat df = new DecimalFormat("##.##");
+    df.setRoundingMode(RoundingMode.HALF_DOWN);
+
+    int n = b.length;
+
+    for (int p = 0; p < n; p++) {
+
+      // find pivot row and swap
+      int max = p;
+      for (int i = p + 1; i < n; i++) {
+        if (Math.abs(A[i][p]) > Math.abs(A[max][p])) {
+          max = i;
+        }
+      }
+      double[] temp = A[p];
+      A[p] = A[max];
+      A[max] = temp;
+      double t = b[p];
+      b[p] = b[max];
+      b[max] = t;
+
+      // singular or nearly singular
+      if (Math.abs(A[p][p]) <= EPSILON) {
+        throw new ArithmeticException("Matrix is singular or nearly singular");
+      }
+
+      // pivot within A and b
+      for (int i = p + 1; i < n; i++) {
+        double alpha = A[i][p] / A[p][p];
+        b[i] -= alpha * b[p];
+        for (int j = p; j < n; j++) {
+          A[i][j] -= alpha * A[p][j];
+        }
+      }
+    }
+
+    // back substitution
+    double[] x = new double[n];
+    for (int i = n - 1; i >= 0; i--) {
+      double sum = 0.0;
+      for (int j = i + 1; j < n; j++) {
+        sum += A[i][j] * x[j];
+      }
+      x[i] = Double.parseDouble(df.format((b[i] - sum) / A[i][i]));
+    }
+    return x;
+  }
+}
