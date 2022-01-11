@@ -1,0 +1,75 @@
+import java.util.*;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
+/**
+ * author Nathan Pham 
+ * date 6/2/2021
+ */
+
+class Main {
+  public static void main(String[] args) {
+    System.out.println("Let's find a line of best fit");
+
+    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
+
+    // both arraylists of x and y coordinates
+    ArrayList<Double> xVals = new ArrayList<Double>();
+    ArrayList<Double> yVals = new ArrayList<Double>();
+
+    boolean flag = true;
+    // asks for user coordinates until stoppage
+    while (flag) {
+      System.out.print("Enter an x coordinate: ");
+      double xTemp = Double.parseDouble(sc.nextLine()); // reads string and puts it in x array
+      xVals.add(xTemp);
+      System.out.print("Enter a y coordinate: ");
+      double yTemp = Double.parseDouble(sc.nextLine()); // reads string and puts it in y array
+      yVals.add(yTemp);
+      System.out.println("You have entered: (" + xTemp + ", " + yTemp + ")");
+      System.out.println("Continue? Type: \"Yes\" or \"No\"");
+      if ("No".equals(sc.nextLine())){
+        break;
+      }
+    }
+    leastSquares(xVals, yVals);
+  }
+
+  ArrayList<Integer> xVals = new ArrayList<Integer>();
+
+  /**
+   * takes in arraylists of the x and y coordinates
+   */
+  public static void leastSquares(List<Double> x, List<Double> y) {
+    //makes sure decimals are rounded to third decimal place
+    DecimalFormat df = new DecimalFormat("#.###");
+    df.setRoundingMode(RoundingMode.HALF_DOWN);
+
+    // instance variables of the sums needed in the formula
+    double sumX = 0;
+    double sumY = 0;
+    double sumXSquared = 0;
+    double sumXY = 0;
+    double numPoints = x.size();
+    String slope, intercept;
+
+    // loops through each coordinate to add to sums
+    for(int i = 0; i < numPoints; i++){
+      double xTemp = x.get(i);
+      double yTemp = y.get(i);
+      sumX += xTemp;
+      sumY += yTemp;
+      sumXSquared += Math.pow(xTemp,2);
+      sumXY += xTemp*yTemp;
+    }
+
+    // does the math for the slope
+    slope  = df.format(((numPoints*sumXY) - (sumX*sumY))/((numPoints*sumXSquared) - Math.pow(sumX,2)));
+
+    // does the math for the intercept
+    intercept = df.format((sumY - Double.parseDouble(slope)*sumX)/numPoints);
+    
+    // prints out function
+    System.out.println("y = " + slope + "x + " + intercept);
+  }
+}
